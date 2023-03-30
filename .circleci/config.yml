@@ -23,7 +23,8 @@ jobs:
       - run: |
           git config --global user.email "dakosta007@gmail.com"
           git config --global user.name "Dakosta007"
-          yes yes | git clone git@github.com:Dakosta007/RS-module2.git /tmp/repo
+          git clone git@github.com:Dakosta007/RS-module2.git /tmp/repo
+          yes "yes" | some-command
           cp -r Deploy/* /tmp/repo/Deploy/
           cd /tmp/repo
           git add Deploy/
