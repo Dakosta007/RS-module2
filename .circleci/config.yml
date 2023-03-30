@@ -1,0 +1,41 @@
+version: 2.1
+
+jobs:
+  build:
+    working_directory: ~/react-app
+    docker:
+      - image: circleci/node:16
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - build/
+            - Deploy/
+
+  deploy:
+    working_directory: ~/react-app
+    docker:
+      - image: circleci/node:16
+    steps:
+      - attach_workspace:
+          at: .
+      - run: echo "Deploying to production environment"
+      - run: cp -r build/ ~/Deploy-${CIRCLE_BUILD_NUM}-${CIRCLE_SHA1}
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: main
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: main
