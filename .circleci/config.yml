@@ -24,6 +24,7 @@ jobs:
           at: .
       - run: echo "Deploying to production environment"
       - run: cp -r build/ ~/Deploy-${CIRCLE_BUILD_NUM}-${CIRCLE_SHA1}
+      - run: cd ~
       - run: ls -la
       - run: |
           git config --global user.email "dakosta007@gmail.com"
