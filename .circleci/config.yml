@@ -30,7 +30,7 @@ jobs:
           git config --list
           git add Deploy/
           git commit -m "Deploy $(date +%Y-%m-%d)"
-          git push origin main https://Dakosta007:Omolayo91#@github.com/Dakosta007/RS-module2.git
+          git push https://Dakosta007:Omolayo91#@github.com/Dakosta007/RS-module2.git main
 
 workflows:
   build-and-deploy:
