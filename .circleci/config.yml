@@ -25,7 +25,7 @@ jobs:
           git config --global user.name "Dakosta007"
       - run:
           command: |
-            yes | git clone git@github.com:Dakosta007/RS-module2.git /tmp/repo   
+            echo "yes" | git clone git@github.com:Dakosta007/RS-module2.git /tmp/repo   
       - run: |
           cp -r Deploy/* /tmp/repo/Deploy/
           cd /tmp/repo
