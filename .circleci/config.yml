@@ -1,8 +1,6 @@
 version: 2.1
-
 jobs:
   build:
-    working_directory: ~/react-app
     docker:
       - image: circleci/node:16
     steps:
@@ -13,26 +11,29 @@ jobs:
           root: .
           paths:
             - build/
-            - Deploy/
-
   deploy:
-    working_directory: ~/react-app
     docker:
       - image: circleci/node:16
     steps:
       - attach_workspace:
           at: .
-      - run: echo "Deploying to production environment"
-      - run: cp -r build/ ~/Deploy-${CIRCLE_BUILD_NUM}-${CIRCLE_SHA1}
-
+      - run: |
+          mkdir -p Deploy/$(date +%Y-%m-%d)
+          cp -r build/* Deploy/$(date +%Y-%m-%d)
+      - run: |
+          git config --global user.email "dakosta007@gmail.com"
+          git config --global user.name "Dakosta007"
+          git clone https://github.com/Dakosta007/RS-module2.git /tmp/repo
+          cp -r Deploy/* /tmp/repo/Deploy/
+          cd /tmp/repo
+          git remote set-url origin https://github.com/Dakosta007/RS-module2.git
+          git add Deploy/
+          git commit -m "Deploy $(date +%Y-%m-%d)"         
+          git push https://${PAT_GITHUB}@github.com/Dakosta007/RS-module2.git
 workflows:
-  version: 2
   build-and-deploy:
     jobs:
-      - build:
-          filters:
-            branches:
-              only: main
+      - build
       - deploy:
           requires:
             - build
