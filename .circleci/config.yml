@@ -29,9 +29,7 @@ jobs:
           git remote set-url origin https://github.com/Dakosta007/RS-module2.git
           git config --list
           git add Deploy/
-          git commit -m "Deploy $(date +%Y-%m-%d)"
-          git config --global credential.helper store
-          printf "protocol=https\nhost=github.com\nusername=Dakosta007\password=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\n" | git credential-cache store          
+          git commit -m "Deploy $(date +%Y-%m-%d)"         
           git push -u origin main
 
 workflows:
