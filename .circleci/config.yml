@@ -20,7 +20,7 @@ jobs:
       - run: |
           mkdir -p Deploy/$(date +%Y-%m-%d)
           cp -r build/* Deploy/$(date +%Y-%m-%d)
-      - env:
+      - env: |
           PAT: ${{ secrets.PAT }}
       - run: |
           git config --global user.email "dakosta007@gmail.com"
