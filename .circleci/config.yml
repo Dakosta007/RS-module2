@@ -24,7 +24,6 @@ jobs:
           git config --global user.email "dakosta007@gmail.com"
           git config --global user.name "Dakosta007"
           git clone https://github.com/Dakosta007/RS-module2.git /tmp/repo
-          git rm -r /tmp/repo/Deploy
           cp -r Deploy/* /tmp/repo/Deploy/
           cd /tmp/repo
           git remote set-url origin https://github.com/Dakosta007/RS-module2.git
