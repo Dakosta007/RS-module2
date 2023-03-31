@@ -28,9 +28,10 @@ jobs:
           cd /tmp/repo
           git remote set-url origin https://github.com/Dakosta007/RS-module2.git
           git config --list
+          echo "machine github.com login Dakosta007 password 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" > ~/.netrc
           git add Deploy/
           git commit -m "Deploy $(date +%Y-%m-%d)"
-          git push -f https://Dakosta007:Omolayo91#@github.com/Dakosta007/RS-module2.git main
+          git push origin main
 
 workflows:
   build-and-deploy:
