@@ -30,7 +30,6 @@ jobs:
           git config --list
           git add Deploy/
           git commit -m "Deploy $(date +%Y-%m-%d)"
-          git remote add origin https://github.com/Dakosta007/RS-module2.git
           git push origin main
 
 workflows:
