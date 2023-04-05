@@ -11,6 +11,13 @@ jobs:
           root: .
           paths:
             - build/
+  test:
+    docker:
+      - image: circleci/node:16
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm test
   deploy:
     docker:
       - image: circleci/node:16
@@ -34,9 +41,15 @@ workflows:
   build-and-deploy:
     jobs:
       - build
-      - deploy:
+      - test:
           requires:
             - build
+          filters:
+            branches:
+              only: main
+      - deploy:
+          requires:
+            - test
           filters:
             branches:
               only: main
