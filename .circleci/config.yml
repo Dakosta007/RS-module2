@@ -1,42 +1,21 @@
+# This config is equivalent to both the '.circleci/extended/orb-free.yml' and the base '.circleci/config.yml'
 version: 2.1
-jobs:
-  build:
-    docker:
-      - image: circleci/node:16
-    steps:
-      - checkout
-      - run: npm install
-      - run: npm run build
-      - persist_to_workspace:
-          root: .
-          paths:
-            - build/
-  deploy:
-    docker:
-      - image: circleci/node:16
-    steps:
-      - attach_workspace:
-          at: .
-      - run: |
-          mkdir -p Deploy/$(date +%Y-%m-%d)
-          cp -r build/* Deploy/$(date +%Y-%m-%d)
-      - run: |
-          git config --global user.email "dakosta007@gmail.com"
-          git config --global user.name "Dakosta007"
-          git clone https://github.com/Dakosta007/RS-module2.git /tmp/repo
-          cp -r Deploy/* /tmp/repo/Deploy/
-          cd /tmp/repo
-          git remote set-url origin https://github.com/Dakosta007/RS-module2.git
-          git add Deploy/
-          git commit -m "Deploy $(date +%Y-%m-%d)"         
-          git push https://${PAT_GITHUB}@github.com/Dakosta007/RS-module2.git
+
+# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
+# See: https://circleci.com/docs/2.0/orb-intro/
+orbs:
+  node: circleci/node@4.7
+
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  build-and-deploy:
+  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
+    # Inside the workflow, you define the jobs you want to run.
     jobs:
-      - build
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only: main
+      - node/test:
+          # This is the node version to use for the `cimg/node` tag
+          # Relevant tags can be found on the CircleCI Developer Hub
+          # https://circleci.com/developer/images/image/cimg/node
+          version: '16.10'
+          # If you are using yarn, change the line below from "npm" to "yarn"
+          pkg-manager: npm
