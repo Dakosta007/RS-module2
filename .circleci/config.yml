@@ -5,7 +5,7 @@ jobs:
       - image: circleci/node:16
     steps:
       - checkout
-      - run: npm install
+      - run: npm install --legacy-peer-deps
       - run: npm run build
       - persist_to_workspace:
           root: .
@@ -16,7 +16,7 @@ jobs:
       - image: circleci/node:16
     steps:
       - checkout
-      - run: npm install --save-dev jest enzyme enzyme-adapter-react-16
+      - run: npm install --save-dev --legacy-peer-deps jest enzyme enzyme-adapter-react-16
       - run: npm run test -- --coverage --watchAll=false --testPathPattern=__tests__/*
   deploy:
     docker:
