@@ -1,33 +1,19 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import MyComponent from '../path/to/MyComponent';
-
-describe('MyComponent', () => {
-  it('renders the component', () => {
-    render(<MyComponent />);
-    expect(screen.getByTestId('my-component')).toBeInTheDocument();
-  });
-
-  it('displays the correct title', () => {
-    render(<MyComponent />);
-    expect(screen.getByText('My Component')).toBeInTheDocument();
-  });
-
-  it('displays the correct message', () => {
-    render(<MyComponent />);
-    expect(screen.getByText('Hello, World!')).toBeInTheDocument();
-  });
-
-  it('applies the correct styles', () => {
-    render(<MyComponent />);
-    expect(screen.getByTestId('my-component')).toHaveStyle('color: red');
-  });
-
-  it('calls the onClick function when the button is clicked', () => {
-    const mockOnClick = jest.fn();
-    render(<MyComponent onClick={mockOnClick} />);
-    const button = screen.getByRole('button');
-    fireEvent.click(button);
-    expect(mockOnClick).toHaveBeenCalled();
-  });
+test('should throw an error for invalid input', () => {
+  expect(() => someFunction('abc')).toThrow();
+});
+test('should add two numbers correctly', () => {
+  expect(add(2, 3)).toBe(5);
+});
+test('should handle very large numbers correctly', () => {
+  expect(multiply(Number.MAX_SAFE_INTEGER, 2)).toBeGreaterThan(Number.MAX_SAFE_INTEGER);
+});
+test('should throw an error for invalid file path', () => {
+  expect(() => readFile('path/to/nonexistent/file')).toThrow();
+});
+test('should sort an array in under 1 second', () => {
+  const arr = generateLargeArray();
+  const start = performance.now();
+  sortArray(arr);
+  const end = performance.now();
+  expect(end - start).toBeLessThan(1000);
 });
