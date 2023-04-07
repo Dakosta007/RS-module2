@@ -18,6 +18,11 @@
     "test": "jest",
     "eject": "react-scripts eject"
   },
+  "jest": {
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    }
+},
   "eslintConfig": {
     "extends": [
       "react-app",
