@@ -1,4 +1,3 @@
-// __tests__/test_file1.js
 import React from 'react';
 import { render } from '@testing-library/react';
 import MyComponent from '../MyComponent';
