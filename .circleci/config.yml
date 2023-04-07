@@ -16,8 +16,8 @@ jobs:
       - image: circleci/node:16
     steps:
       - checkout
-      - run: npm install --save-dev jest-junit
-      - run: npm test -- --ci --reporters=default --reporters=jest-junit
+      - run: npm install --save-dev jest
+      - run: npm test
   deploy:
     docker:
       - image: circleci/node:16
