@@ -16,7 +16,7 @@ jobs:
       - image: circleci/node:16
     steps:
       - checkout
-      - run: npm install
+      - run: npm install --save-dev jest enzyme enzyme-adapter-react-16
       - run: npm run test -- --passWithNoTests
   deploy:
     docker:
