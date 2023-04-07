@@ -15,7 +15,7 @@
   "jest": {
     "reporters": [
       "default",
-      "jest-junit"
+      ["jest-junit", { "outputDirectory": "test-results/jest" }]
     ]
 },
   "scripts": {
