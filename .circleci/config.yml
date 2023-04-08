@@ -5,12 +5,19 @@ jobs:
       - image: circleci/node:16
     steps:
       - checkout
-      - run: npm install
+      - run: npm install --legacy-peer-deps
       - run: npm run build
       - persist_to_workspace:
           root: .
           paths:
             - build/
+  test:
+    docker:
+      - image: circleci/node:16
+    steps:
+      - checkout
+      - run: npm install --save-dev jest
+      - run: npm run test
   deploy:
     docker:
       - image: circleci/node:16
@@ -34,9 +41,15 @@ workflows:
   build-and-deploy:
     jobs:
       - build
-      - deploy:
+      - test:
           requires:
             - build
+          filters:
+            branches:
+              only: main
+      - deploy:
+          requires:
+            - test
           filters:
             branches:
               only: main
